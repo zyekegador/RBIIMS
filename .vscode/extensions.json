@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "ritwickdey.LiveServer",
+    "esbenp.prettier-vscode",
+    "formulahendry.auto-close-tag",
+    "formulahendry.auto-rename-tag",
+    "Zignd.html-css-class-completion",
+    "naumovs.color-highlight",
+    "PKief.material-icon-theme"
+  ]
+}

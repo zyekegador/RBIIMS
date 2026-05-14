@@ -1,0 +1,1542 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RBI System — Barangay Golden Ribbon</title>
+    <link rel="icon" href="Logo.png" type="image/png" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- SHEETJS -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <!-- Stylesheets (order matters) -->
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/components.css" />
+  </head>
+  <body>
+    <!-- ══════════════════════════════════════════════════════════
+     SVG ICON SYMBOL DEFINITIONS
+     Referenced throughout as: <svg class="icon"><use href="#icon-NAME"/></svg>
+     Source: Heroicons v2 (MIT License — https://heroicons.com)
+═══════════════════════════════════════════════════════════ -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style="display: none"
+      aria-hidden="true"
+    >
+      <symbol
+        id="icon-dashboard"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"
+        />
+      </symbol>
+      <symbol
+        id="icon-search"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </symbol>
+      <symbol
+        id="icon-home"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+        />
+      </symbol>
+      <symbol
+        id="icon-settings"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"
+        />
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+        />
+      </symbol>
+      <symbol
+        id="icon-plus"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 4.5v15m7.5-7.5h-15"
+        />
+      </symbol>
+      <symbol
+        id="icon-edit"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125"
+        />
+      </symbol>
+      <symbol
+        id="icon-trash"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+        />
+      </symbol>
+      <symbol
+        id="icon-print"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Zm-3 0h.008v.008H15V10.5Z"
+        />
+      </symbol>
+      <symbol
+        id="icon-export"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+        />
+      </symbol>
+      <symbol
+        id="icon-import"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5"
+        />
+      </symbol>
+      <symbol
+        id="icon-close"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18 18 6M6 6l12 12"
+        />
+      </symbol>
+      <symbol
+        id="icon-check"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m4.5 12.75 6 6 9-13.5"
+        />
+      </symbol>
+      <symbol
+        id="icon-warning"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
+        />
+      </symbol>
+      <symbol
+        id="icon-info"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+        />
+      </symbol>
+      <symbol
+        id="icon-star"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
+        />
+      </symbol>
+      <symbol
+        id="icon-user"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+        />
+      </symbol>
+      <symbol
+        id="icon-users"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
+        />
+      </symbol>
+      <symbol
+        id="icon-filter"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
+        />
+      </symbol>
+      <symbol
+        id="icon-building"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"
+        />
+      </symbol>
+      <symbol
+        id="icon-save"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+        />
+      </symbol>
+      <symbol
+        id="icon-clear"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+        />
+      </symbol>
+    </svg>
+
+    <!-- ══════════════════════════════════════════════════════════
+     HEADER (with Auth Panel elements)
+═══════════════════════════════════════════════════════════ -->
+    <header id="app-header" role="banner">
+      <!-- Left Panel Brand Content (shown when auth-locked) -->
+      <div class="ring-inner"></div>
+      <div class="corner-tl"></div>
+      <div class="corner-br"></div>
+
+      <div class="panel-brand">
+        <div class="logo-ring">
+          <img
+            src="Logo.png"
+            alt="Barangay Golden Ribbon logo"
+            class="header-logo"
+          />
+          <div class="logo-placeholder" style="display: none">BR</div>
+        </div>
+
+        <p class="brand-eyebrow">Barangay Golden Ribbon</p>
+        <div class="header-title">
+          <h1>RBI Information Management System (RBIIMS)</h1>
+          <p style="text-align: center">
+            A secure and centralized platform for managing resident profiles,
+            household data, and barangay records of Barangay Golden Ribbon.
+          </p>
+        </div>
+        <div class="brand-divider"></div>
+      </div>
+
+      <div class="panel-footer">
+        <span>Butuan City</span>
+        <span class="dot"></span>
+        <span>Barangay Golden Ribbon</span>
+        <span class="dot"></span>
+        <span>RBI System</span>
+      </div>
+
+      <!-- Right Panel Header Content (shown when logged in) -->
+      <div class="header-brand">
+        <img
+          src="Logo.png"
+          alt="Barangay Golden Ribbon logo"
+          class="header-logo"
+        />
+        <div class="header-title">
+          <h1>Barangay Golden Ribbon — Registry of Barangay Inhabitants</h1>
+          <p>
+            Brgy. Golden Ribbon, Butuan City &nbsp;&bull;&nbsp; RBI Data
+            Management System
+          </p>
+        </div>
+      </div>
+      <div class="header-meta">
+        <span class="badge-offline" title="This system operates fully offline"
+          >OFFLINE SYSTEM</span
+        >
+        <span id="auth-user" class="header-user"></span>
+        <button
+          id="logout-button"
+          class="btn btn-ghost btn-sm"
+          onclick="logoutUser()"
+          type="button"
+        >
+          Logout
+        </button>
+        <span id="save-indicator" class="save-indicator" aria-live="polite"
+          >Saved</span
+        >
+      </div>
+    </header>
+
+    <!-- ══════════════════════════════════════════════════════════
+     SIDEBAR NAVIGATION
+═══════════════════════════════════════════════════════════ -->
+    <nav id="sidebar" role="navigation" aria-label="Main navigation">
+      <div class="nav-group">
+        <span class="nav-group-label">Overview</span>
+        <button
+          class="nav-item active"
+          data-page="dashboard"
+          onclick="showPage('dashboard')"
+          aria-current="page"
+        >
+          <svg class="icon" aria-hidden="true">
+            <use href="#icon-dashboard" />
+          </svg>
+          <span>Dashboard</span>
+        </button>
+        <button
+          class="nav-item"
+          data-page="search"
+          onclick="showPage('search')"
+        >
+          <svg class="icon" aria-hidden="true"><use href="#icon-search" /></svg>
+          <span>Record Search</span>
+        </button>
+      </div>
+
+      <div class="nav-group" id="nav-group-puroks">
+        <span class="nav-group-label">Purok Records</span>
+        <!-- Injected dynamically by buildSidebar() in app.js -->
+        <div id="sidebar-puroks"></div>
+      </div>
+
+      <div class="nav-group">
+        <span class="nav-group-label">Administration</span>
+        <button
+          class="nav-item"
+          data-page="settings"
+          onclick="showPage('settings')"
+        >
+          <svg class="icon" aria-hidden="true">
+            <use href="#icon-settings" />
+          </svg>
+          <span>Data Management</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ══════════════════════════════════════════════════════════
+     MAIN CONTENT
+═══════════════════════════════════════════════════════════ -->
+    <main id="main" role="main">
+      <!-- ─── DASHBOARD ─────────────────────────────────────── -->
+      <section
+        id="page-dashboard"
+        class="page active"
+        aria-labelledby="dash-title"
+      >
+        <div class="page-header">
+          <div>
+            <h2 id="dash-title" class="page-title">Dashboard</h2>
+            <p class="page-subtitle">
+              Barangay Golden Ribbon — Population &amp; Socio-Economic Overview
+            </p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline btn-sm" onclick="window.print()">
+              <svg class="icon" aria-hidden="true">
+                <use href="#icon-print" />
+              </svg>
+              Print
+            </button>
+          </div>
+        </div>
+
+        <!-- IMPORT MASTERLIST -->
+        <div class="import-masterlist">
+          <h3 class="import-masterlist-title">Import Masterlist</h3>
+
+          <input type="file" id="excel-import" />
+
+          <button class="btn btn-primary" onclick="importExcelData()">
+            Import Excel File
+          </button>
+        </div>
+
+        <!-- Stat Cards -->
+        <div class="stat-grid" id="dash-stat-grid">
+          <div class="stat-card accent-navy">
+            <div class="stat-label">Total Population</div>
+            <div class="stat-value" id="d-total-pop">0</div>
+            <div class="stat-sub">All puroks combined</div>
+          </div>
+          <div class="stat-card accent-gold">
+            <div class="stat-label">Households</div>
+            <div class="stat-value" id="d-total-hh">0</div>
+            <div class="stat-sub">Registered families</div>
+          </div>
+          <div class="stat-card accent-blue">
+            <div class="stat-label">Male</div>
+            <div class="stat-value" id="d-total-male">0</div>
+            <div class="stat-sub">Male residents</div>
+          </div>
+          <div class="stat-card accent-red">
+            <div class="stat-label">Female</div>
+            <div class="stat-value" id="d-total-female">0</div>
+            <div class="stat-sub">Female residents</div>
+          </div>
+        </div>
+
+        <!-- Purok Grid -->
+        <div class="section-label">Purok Population Summary</div>
+        <div class="purok-grid" id="purok-pop-grid"></div>
+
+        <!-- Summary Tables -->
+        <div class="summary-grid">
+          <div class="summary-panel">
+            <div class="summary-panel-header">Sex Distribution</div>
+            <table class="summary-table">
+              <thead>
+                <tr>
+                  <th>Sex</th>
+                  <th>Count</th>
+                </tr>
+              </thead>
+              <tbody id="d-sex-body"></tbody>
+            </table>
+          </div>
+          <div class="summary-panel">
+            <div class="summary-panel-header">Civil Status</div>
+            <table class="summary-table">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Male</th>
+                  <th>Female</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody id="d-civil-body"></tbody>
+            </table>
+          </div>
+          <div class="summary-panel">
+            <div class="summary-panel-header">Age Bracket Breakdown</div>
+            <table class="summary-table">
+              <thead>
+                <tr>
+                  <th>Age Group</th>
+                  <th>Male</th>
+                  <th>Female</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody id="d-age-body"></tbody>
+            </table>
+          </div>
+          <div class="summary-panel">
+            <div class="summary-panel-header">Socio-Economic Indicators</div>
+            <table class="summary-table">
+              <thead>
+                <tr>
+                  <th>Indicator</th>
+                  <th>Male</th>
+                  <th>Female</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody id="d-indicator-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── PUROK PAGE ────────────────────────────────────── -->
+      <section id="page-purok" class="page" aria-labelledby="purok-page-title">
+        <div class="page-header">
+          <div>
+            <h2 id="purok-page-title" class="page-title">Purok</h2>
+            <p id="purok-page-sub" class="page-subtitle">Residents registry</p>
+          </div>
+          <div class="page-actions">
+            <button class="btn btn-outline btn-sm" onclick="window.print()">
+              <svg class="icon" aria-hidden="true">
+                <use href="#icon-print" />
+              </svg>
+              Print
+            </button>
+            <button
+              class="btn btn-primary"
+              id="btn-add-resident"
+              onclick="openAddModal()"
+            >
+              <svg class="icon" aria-hidden="true">
+                <use href="#icon-plus" />
+              </svg>
+              Add Resident
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="tab-bar" role="tablist">
+          <button
+            class="tab-btn active"
+            role="tab"
+            aria-selected="true"
+            id="tab-btn-residents"
+            onclick="switchTab('residents')"
+          >
+            <svg class="icon" aria-hidden="true">
+              <use href="#icon-users" />
+            </svg>
+            Residents
+          </button>
+          <button
+            class="tab-btn"
+            role="tab"
+            aria-selected="false"
+            id="tab-btn-summary"
+            onclick="switchTab('summary')"
+          >
+            <svg class="icon" aria-hidden="true">
+              <use href="#icon-dashboard" />
+            </svg>
+            Purok Summary
+          </button>
+        </div>
+
+        <!-- Residents Tab -->
+        <div id="tab-residents" class="tab-panel active" role="tabpanel">
+          <div class="table-card">
+            <div class="table-card-header">
+              <div>
+                <h3 class="table-card-title" id="purok-table-title">
+                  Resident Records
+                </h3>
+                <p class="table-card-sub" id="purok-table-sub">
+                  All registered inhabitants
+                </p>
+              </div>
+            </div>
+
+            <!-- Filters Toolbar -->
+            <div class="toolbar">
+              <div class="toolbar-search">
+                <svg class="toolbar-search-icon" aria-hidden="true">
+                  <use href="#icon-search" />
+                </svg>
+                <input
+                  type="search"
+                  class="input-search"
+                  id="purok-search"
+                  placeholder="Search by name…"
+                  aria-label="Search residents by name"
+                  oninput="filterPurokTable()"
+                />
+              </div>
+              <div class="toolbar-filters">
+                <div class="filter-group">
+                  <svg class="icon icon-sm" aria-hidden="true">
+                    <use href="#icon-filter" />
+                  </svg>
+                  <select
+                    class="input-select"
+                    id="purok-filter-gender"
+                    onchange="filterPurokTable()"
+                    aria-label="Filter by gender"
+                  >
+                    <option value="">All Genders</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                </div>
+                <select
+                  class="input-select"
+                  id="purok-filter-civil"
+                  onchange="filterPurokTable()"
+                  aria-label="Filter by civil status"
+                >
+                  <option value="">All Civil Status</option>
+                  <option>Single</option>
+                  <option>Married</option>
+                  <option>Widowed</option>
+                  <option>Separated</option>
+                  <option>Live-in</option>
+                </select>
+                <select
+                  class="input-select"
+                  id="purok-filter-indicator"
+                  onchange="filterPurokTable()"
+                  aria-label="Filter by indicator"
+                >
+                  <option value="">All Indicators</option>
+                  <option value="seniorCitizen">Senior Citizen</option>
+                  <option value="pwd">PWD</option>
+                  <option value="ofw">OFW</option>
+                  <option value="soloParent">Solo Parent</option>
+                  <option value="osy">OSY</option>
+                  <option value="osc">OSC</option>
+                  <option value="student">Student</option>
+                  <option value="ip">IP</option>
+                  <option value="fourPs">4Ps</option>
+                  <option value="employed">Employed</option>
+                  <option value="unemployed">Unemployed</option>
+                </select>
+                <button
+                  class="btn btn-ghost btn-sm"
+                  onclick="clearPurokFilters()"
+                  title="Clear all filters"
+                >
+                  Clear Filters
+                </button>
+              </div>
+            </div>
+
+            <!-- Residents Table -->
+            <div
+              class="table-wrapper"
+              role="region"
+              aria-label="Residents table"
+              tabindex="0"
+            >
+              <table class="data-table" id="purok-table">
+                <thead>
+                  <tr>
+                    <th class="col-no">#</th>
+                    <th class="col-role">Role</th>
+                    <th class="col-name">Last Name</th>
+                    <th class="col-name">First Name</th>
+                    <th class="col-name">Middle Name</th>
+                    <th class="col-ext">Ext.</th>
+                    <th class="col-pob">Place of Birth</th>
+                    <th class="col-date">Birthdate</th>
+                    <th class="col-age">Age</th>
+                    <th class="col-sex">Sex</th>
+                    <th class="col-civil">Civil Status</th>
+                    <th class="col-citizen">Citizenship</th>
+                    <th class="col-occ">Occupation</th>
+                    <th class="col-ind">Indicators</th>
+                    <th class="col-actions">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="purok-tbody">
+                  <!-- Rows injected by purok.js via event delegation -->
+                </tbody>
+              </table>
+            </div>
+
+            <div class="table-footer">
+              <span id="purok-record-count" class="table-count">0 records</span>
+              <span id="purok-hh-count" class="table-count">0 households</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary Tab -->
+        <div id="tab-summary" class="tab-panel" role="tabpanel">
+          <div class="summary-grid" id="purok-summary-content"></div>
+        </div>
+      </section>
+
+      <!-- ─── SEARCH PAGE ───────────────────────────────────── -->
+      <section id="page-search" class="page" aria-labelledby="search-title">
+        <div class="page-header">
+          <div>
+            <h2 id="search-title" class="page-title">Record Search</h2>
+            <p class="page-subtitle">Search by name across all puroks</p>
+          </div>
+        </div>
+
+        <div class="search-hero">
+          <div class="search-hero-inner">
+            <h3 class="search-hero-title">Search Resident Records</h3>
+            <p class="search-hero-sub">
+              Enter a full name or surname to locate a specific resident in the
+              RBI database.
+            </p>
+            <div class="search-hero-bar">
+              <div class="search-hero-input-wrap">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#icon-search" />
+                </svg>
+                <input
+                  type="search"
+                  id="global-search-input"
+                  class="search-hero-input"
+                  placeholder="Enter name or surname…"
+                  aria-label="Search all residents"
+                  oninput="globalSearch()"
+                />
+              </div>
+              <button class="btn btn-gold" onclick="globalSearch()">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#icon-search" />
+                </svg>
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div id="search-results-area">
+          <div class="empty-state">
+            <svg class="empty-icon" aria-hidden="true">
+              <use href="#icon-search" />
+            </svg>
+            <p class="empty-title">Enter a name to begin searching</p>
+            <p class="empty-sub">Results will appear here</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── LOGIN PAGE ─────────────────────────────────────── -->
+      <section id="page-login" class="page" aria-labelledby="login-title">
+        <div class="page-header">
+          <h2 id="login-title" class="page-title">Welcome back</h2>
+          <p class="page-subtitle">Sign in to your RBI account to continue.</p>
+        </div>
+
+        <div class="auth-card">
+          <span class="form-tag">Secure Access</span>
+
+          <form id="login-form" class="auth-form">
+            <div class="field-group">
+              <div class="field">
+                <label class="form-label" for="login-email"
+                  >Email Address</label
+                >
+                <div class="input-wrap">
+                  <input
+                    id="login-email"
+                    class="form-control"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="you@example.com"
+                    required
+                  />
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.75"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="2" y="4" width="20" height="16" rx="3" />
+                    <path d="m2 7 10 7 10-7" />
+                  </svg>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="form-label" for="login-password">Password</label>
+                <div class="input-wrap">
+                  <input
+                    id="login-password"
+                    class="form-control"
+                    type="password"
+                    autocomplete="current-password"
+                    placeholder="••••••••"
+                    required
+                  />
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.75"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                  <button
+                    type="button"
+                    class="pw-toggle"
+                    aria-label="Toggle password visibility"
+                    onclick="togglePassword(this, 'login-password')"
+                  >
+                    <svg
+                      id="eye-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      width="16"
+                      height="16"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"
+                      />
+                      <circle cx="12" cy="12" r="3" />
+                    </svg>
+                  </button>
+                </div>
+                <div class="field-meta">
+                  <a href="#">Forgot password?</a>
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="login-error"
+              class="form-error-banner"
+              role="alert"
+              aria-live="assertive"
+              style="display: none"
+            ></div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Sign In</button>
+
+              <div class="divider">or</div>
+
+              <button
+                class="btn btn-secondary"
+                type="button"
+                onclick="switchToRegister()"
+              >
+                Create a new account
+              </button>
+            </div>
+          </form>
+
+          <div class="card-footer">
+            Need help? <a href="#">Contact the Barangay Office</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─── REGISTER PAGE ─────────────────────────────────── -->
+      <section id="page-register" class="page" aria-labelledby="register-title">
+        <div class="page-header">
+          <div>
+            <h2 id="register-title" class="page-title">Create an account</h2>
+            <p class="page-subtitle">
+              Sign up for the RBI application and store your records securely in
+              the browser.
+            </p>
+          </div>
+        </div>
+
+        <div class="auth-card">
+          <form id="register-form" class="auth-form">
+            <div class="form-group">
+              <label class="form-label" for="register-name">Full name</label>
+              <input
+                id="register-name"
+                class="form-control"
+                type="text"
+                autocomplete="name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="register-email"
+                >Email address</label
+              >
+              <input
+                id="register-email"
+                class="form-control"
+                type="email"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="register-password">Password</label>
+              <input
+                id="register-password"
+                class="form-control"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+              />
+            </div>
+            <div
+              id="register-error"
+              class="form-error-banner"
+              role="alert"
+              aria-live="assertive"
+              style="display: none"
+            ></div>
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Register</button>
+              <button
+                class="btn btn-ghost"
+                type="button"
+                onclick="switchToLogin()"
+              >
+                Already have an account
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ─── DATA MANAGEMENT PAGE ──────────────────────────── -->
+      <section id="page-settings" class="page" aria-labelledby="settings-title">
+        <div class="page-header">
+          <div>
+            <h2 id="settings-title" class="page-title">Data Management</h2>
+            <p class="page-subtitle">Export, import, and manage RBI data</p>
+          </div>
+        </div>
+
+        <div class="notice notice-warning">
+          <svg class="icon" aria-hidden="true">
+            <use href="#icon-warning" />
+          </svg>
+          All data is stored in your browser's local storage. Export regularly
+          to prevent data loss.
+        </div>
+
+        <div class="settings-grid">
+          <div class="settings-card">
+            <div class="settings-card-icon accent-navy">
+              <svg class="icon icon-lg" aria-hidden="true">
+                <use href="#icon-export" />
+              </svg>
+            </div>
+            <div class="settings-card-body">
+              <h4>Export Data</h4>
+              <p>Download a full backup of all RBI records as a JSON file.</p>
+              <button class="btn btn-primary" onclick="exportData()">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#icon-export" />
+                </svg>
+                Export All Data
+              </button>
+            </div>
+          </div>
+          <div class="settings-card">
+            <div class="settings-card-icon accent-teal">
+              <svg class="icon icon-lg" aria-hidden="true">
+                <use href="#icon-import" />
+              </svg>
+            </div>
+            <div class="settings-card-body">
+              <h4>Import Data</h4>
+              <p>
+                Restore data from a previously exported JSON file.
+                <strong>This overwrites all current data.</strong>
+              </p>
+              <input
+                type="file"
+                id="import-file"
+                accept=".json"
+                style="display: none"
+                onchange="importData(event)"
+              />
+              <button
+                class="btn btn-outline"
+                onclick="document.getElementById('import-file').click()"
+              >
+                <svg class="icon" aria-hidden="true">
+                  <use href="#icon-import" />
+                </svg>
+                Import from File
+              </button>
+            </div>
+          </div>
+          <div class="settings-card">
+            <div class="settings-card-icon accent-red">
+              <svg class="icon icon-lg" aria-hidden="true">
+                <use href="#icon-trash" />
+              </svg>
+            </div>
+            <div class="settings-card-body">
+              <h4>Clear All Data</h4>
+              <p>
+                Permanently delete all resident records.
+                <strong>This action cannot be undone.</strong>
+              </p>
+              <button class="btn btn-danger" onclick="confirmClearAll()">
+                <svg class="icon" aria-hidden="true">
+                  <use href="#icon-trash" />
+                </svg>
+                Clear All Records
+              </button>
+            </div>
+          </div>
+          <div class="settings-card">
+            <div class="settings-card-icon accent-gold">
+              <svg class="icon icon-lg" aria-hidden="true">
+                <use href="#icon-info" />
+              </svg>
+            </div>
+            <div class="settings-card-body">
+              <h4>System Information</h4>
+              <p>
+                RBI System v2.0 &mdash; Barangay Golden Ribbon, Cagayan de Oro
+                City
+              </p>
+              <div class="sys-info-row">
+                <span>Storage used:</span> <strong id="data-size">0 KB</strong>
+              </div>
+              <div class="sys-info-row">
+                <span>Total residents:</span> <strong id="sys-total">0</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Manage Puroks ──────────────────────────────────── -->
+        <div class="purok-manager-card">
+          <div class="purok-manager-card-header">
+            <div class="purok-manager-card-title">
+              <svg class="icon icon-md" aria-hidden="true">
+                <use href="#icon-home" />
+              </svg>
+              Manage Puroks
+            </div>
+            <p class="purok-manager-card-sub">
+              Add or remove puroks. You cannot delete a purok that still has
+              residents assigned to it.
+            </p>
+          </div>
+
+          <!-- Current puroks list -->
+          <div id="purok-manager-list" class="purok-manager-list">
+            <!-- Rendered by renderPurokManager() in app.js -->
+          </div>
+
+          <!-- Add new purok -->
+          <div class="purok-manager-add">
+            <div class="purok-manager-add-title">
+              <svg class="icon" aria-hidden="true">
+                <use href="#icon-plus" />
+              </svg>
+              Add New Purok
+            </div>
+            <div class="purok-manager-add-row">
+              <input
+                type="text"
+                id="new-purok-input"
+                class="form-control purok-manager-input"
+                placeholder="e.g. 8, Poblacion, Upper Golden Ribbon…"
+                maxlength="20"
+                autocomplete="off"
+                aria-label="New purok name"
+              />
+              <button
+                class="btn btn-primary btn-icon"
+                onclick="handleAddPurok()"
+                title="Add Purok"
+                aria-label="Add Purok"
+              >
+                <svg class="icon" aria-hidden="true">
+                  <use href="#icon-plus" />
+                </svg>
+              </button>
+            </div>
+            <div class="purok-add-hint">
+              Max 20 characters. Purok names must be unique.
+            </div>
+            <div
+              id="new-purok-error"
+              class="purok-add-error"
+              style="display: none"
+            ></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ══════════════════════════════════════════════════════════
+     ADD / EDIT RESIDENT MODAL
+═══════════════════════════════════════════════════════════ -->
+    <div
+      class="modal-overlay"
+      id="resident-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div class="modal">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modal-title">Add New Resident</h3>
+          <button
+            class="modal-close"
+            onclick="closeModal('resident-modal')"
+            aria-label="Close dialog"
+          >
+            <svg class="icon" aria-hidden="true">
+              <use href="#icon-close" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Validation Banner -->
+          <div
+            class="form-error-banner"
+            id="form-error-banner"
+            role="alert"
+            aria-live="assertive"
+            style="display: none"
+          >
+            <svg class="icon" aria-hidden="true">
+              <use href="#icon-warning" />
+            </svg>
+            <span id="form-error-text">Please correct the errors below.</span>
+          </div>
+
+          <fieldset class="form-fieldset">
+            <legend class="form-legend">Personal Information</legend>
+            <div class="form-grid">
+              <div class="form-group" id="fg-lastname">
+                <label class="form-label" for="f-lastname"
+                  >Last Name
+                  <span class="required" aria-hidden="true">*</span></label
+                >
+                <input
+                  class="form-control"
+                  id="f-lastname"
+                  type="text"
+                  autocomplete="family-name"
+                />
+                <span class="form-error" id="err-lastname"></span>
+              </div>
+
+              <div class="form-group" id="fg-firstname">
+                <label class="form-label" for="f-firstname"
+                  >First Name
+                  <span class="required" aria-hidden="true">*</span></label
+                >
+                <input
+                  class="form-control"
+                  id="f-firstname"
+                  type="text"
+                  autocomplete="given-name"
+                />
+                <span class="form-error" id="err-firstname"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="f-middlename">Middle Name</label>
+                <input class="form-control" id="f-middlename" type="text" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="f-ext">Ext. (Jr./Sr./III)</label>
+                <input
+                  class="form-control"
+                  id="f-ext"
+                  type="text"
+                  placeholder="Jr., Sr., III…"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="f-pob">Place of Birth</label>
+                <input class="form-control" id="f-pob" type="text" />
+              </div>
+
+              <div class="form-group" id="fg-birthdate">
+                <label class="form-label" for="f-birthdate">
+                  Birthdate <span class="required" aria-hidden="true">*</span>
+                  <span class="label-hint">(YYYY-MM-DD)</span>
+                </label>
+                <input
+                  class="form-control"
+                  id="f-birthdate"
+                  type="date"
+                  max=""
+                />
+                <span class="form-error" id="err-birthdate"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="f-age"
+                  >Age <span class="label-hint">(auto-calculated)</span></label
+                >
+                <input
+                  class="form-control input-readonly"
+                  id="f-age"
+                  type="number"
+                  min="0"
+                  max="150"
+                  readonly
+                  tabindex="-1"
+                />
+              </div>
+
+              <div class="form-group" id="fg-gender">
+                <label class="form-label" for="f-gender"
+                  >Sex <span class="required" aria-hidden="true">*</span></label
+                >
+                <select class="form-control" id="f-gender">
+                  <option value="">Select…</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+                <span class="form-error" id="err-gender"></span>
+              </div>
+
+              <div class="form-group" id="fg-citizenship">
+                <label class="form-label" for="f-citizenship"
+                  >Citizenship
+                  <span class="required" aria-hidden="true">*</span></label
+                >
+                <select class="form-control" id="f-citizenship">
+                  <option value="">Select…</option>
+                  <option>Filipino</option>
+                  <option>Foreigner</option>
+                </select>
+                <span class="form-error" id="err-citizenship"></span>
+              </div>
+
+              <div class="form-group" id="fg-civil">
+                <label class="form-label" for="f-civil"
+                  >Civil Status
+                  <span class="required" aria-hidden="true">*</span></label
+                >
+                <select class="form-control" id="f-civil">
+                  <option value="">Select…</option>
+                  <option>Single</option>
+                  <option>Married</option>
+                  <option>Widowed</option>
+                  <option>Separated</option>
+                  <option>Live-in</option>
+                </select>
+                <span class="form-error" id="err-civil"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="f-occupation">Occupation</label>
+                <input class="form-control" id="f-occupation" type="text" />
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-fieldset">
+            <legend class="form-legend">Household Information</legend>
+            <div class="form-grid">
+              <div class="form-group" id="fg-purok">
+                <label class="form-label" for="f-purok"
+                  >Purok
+                  <span class="required" aria-hidden="true">*</span></label
+                >
+                <select class="form-control" id="f-purok">
+                  <option value="">Select Purok…</option>
+                  <!-- Options injected dynamically by rebuildPurokSelect() in app.js -->
+                </select>
+                <span class="form-error" id="err-purok"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="f-household"
+                  >Household No.</label
+                >
+                <input
+                  class="form-control"
+                  id="f-household"
+                  type="number"
+                  min="1"
+                  placeholder="e.g. 1, 2, 3…"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="f-role">Role in Household</label>
+                <select class="form-control" id="f-role">
+                  <option value="Member">Member</option>
+                  <option value="Head">Head of Household</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-fieldset">
+            <legend class="form-legend">Socio-Economic Indicators</legend>
+            <div class="checkbox-grid">
+              <label class="checkbox-item"
+                ><input type="checkbox" id="f-employed" /><span
+                  >Employed</span
+                ></label
+              >
+              <label class="checkbox-item"
+                ><input type="checkbox" id="f-unemployed" /><span
+                  >Unemployed</span
+                ></label
+              >
+              <label class="checkbox-item"
+                ><input type="checkbox" id="f-senior" /><span
+                  >Senior Citizen (60+)</span
+                ></label
+              >
+              <label class="checkbox-item"
+                ><input type="checkbox" id="f-ofw" /><span>OFW</span></label
+              >
+              <label class="checkbox-item"
+                ><input type="checkbox" id="f-pwd" /><span>PWD</span></label
+              >
+              <label class="checkbox-item"
+                ><input type="checkbox" id="f-soloparent" /><span
+                  >Solo Parent</span
+                ></label
+              >
+              <label class="checkbox-item"
+                ><input type="checkbox" id="f-osy" /><span
+                  >Out-of-School Youth (OSY)</span
+                ></label
+              >
+              <label class="checkbox-item"
+                ><input type="checkbox" id="f-osc" /><span
+                  >Out-of-School Children (OSC)</span
+                ></label
+              >
+              <label class="checkbox-item"
+                ><input type="checkbox" id="f-student" /><span
+                  >Student</span
+                ></label
+              >
+              <label class="checkbox-item"
+                ><input type="checkbox" id="f-ip" /><span
+                  >Indigenous Peoples (IP)</span
+                ></label
+              >
+              <label class="checkbox-item"
+                ><input type="checkbox" id="f-fourps" /><span
+                  >4Ps Beneficiary</span
+                ></label
+              >
+            </div>
+          </fieldset>
+        </div>
+        <!-- /modal-body -->
+
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('resident-modal')">
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            id="btn-save-resident"
+            onclick="saveResident()"
+          >
+            <svg class="icon" aria-hidden="true"><use href="#icon-save" /></svg>
+            <span id="btn-save-label">Save Resident</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+     DELETE CONFIRMATION MODAL
+═══════════════════════════════════════════════════════════ -->
+    <div
+      class="modal-overlay"
+      id="delete-modal"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="delete-modal-title"
+    >
+      <div class="modal modal-sm">
+        <div class="modal-header modal-header-danger">
+          <h3 class="modal-title" id="delete-modal-title">Confirm Deletion</h3>
+          <button
+            class="modal-close"
+            onclick="closeModal('delete-modal')"
+            aria-label="Close dialog"
+          >
+            <svg class="icon" aria-hidden="true">
+              <use href="#icon-close" />
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="delete-confirm-body">
+            <svg class="delete-confirm-icon" aria-hidden="true">
+              <use href="#icon-warning" />
+            </svg>
+            <div>
+              <p class="delete-confirm-name">
+                Are you sure you want to delete
+                <strong id="delete-name"></strong>?
+              </p>
+              <p class="delete-confirm-sub">
+                This action is permanent and cannot be undone.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-ghost" onclick="closeModal('delete-modal')">
+            Cancel
+          </button>
+          <button class="btn btn-danger" onclick="confirmDelete()">
+            <svg class="icon" aria-hidden="true">
+              <use href="#icon-trash" />
+            </svg>
+            Delete Record
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+     TOAST NOTIFICATION
+═══════════════════════════════════════════════════════════ -->
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true">
+      <svg class="icon" id="toast-icon" aria-hidden="true">
+        <use href="#icon-check" />
+      </svg>
+      <span id="toast-msg"></span>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════
+     JAVASCRIPT — load in dependency order
+═══════════════════════════════════════════════════════════ -->
+    <script src="js/constants.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/purok.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/import.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- ══════════════════════════════════════════════════════════
+     UTILITY FUNCTIONS
+═══════════════════════════════════════════════════════════ -->
+    <script>
+      /**
+       * Toggle password visibility in sign-in form
+       * @param {HTMLElement} btn - The toggle button element
+       * @param {string} inputId - The ID of the password input field
+       */
+      function togglePassword(btn, inputId) {
+        const input = document.getElementById(inputId);
+        const isHidden = input.type === "password";
+        input.type = isHidden ? "text" : "password";
+
+        const svg = btn.querySelector("svg");
+        if (isHidden) {
+          // Show eye-off icon (hidden password toggle)
+          svg.innerHTML =
+            '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+        } else {
+          // Show eye icon (visible password)
+          svg.innerHTML =
+            '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>';
+        }
+      }
+    </script>
+  </body>
+</html>
