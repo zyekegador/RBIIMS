@@ -132,14 +132,24 @@ function buildIndicatorBadges(r) {
 
   const checks = [
     {
-      label: "Employed",
+      label: "Public",
       className: "ind-employed",
-      active: r.employed,
+      active: r.employmentType === "Public",
+    },
+    {
+      label: "Private",
+      className: "ind-employed",
+      active: r.employmentType === "Private",
+    },
+    {
+      label: "Self-Employed",
+      className: "ind-employed",
+      active: r.employmentType === "Self-Employed",
     },
     {
       label: "Unemployed",
       className: "ind-unemployed",
-      active: r.unemployed,
+      active: r.employmentType === "Unemployed",
     },
     {
       label: "Senior Citizen",

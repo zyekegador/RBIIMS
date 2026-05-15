@@ -1364,15 +1364,19 @@
           <fieldset class="form-fieldset">
             <legend class="form-legend">Socio-Economic Indicators</legend>
             <div class="checkbox-grid">
-              <label class="checkbox-item"
-                ><input type="checkbox" id="f-employed" /><span
-                  >Employed</span
-                ></label
-              >
-              <label class="checkbox-item"
-                ><input type="checkbox" id="f-unemployed" /><span
-                  >Unemployed</span
-                ></label
+              <div class="form-group">
+                <label for="f-employmentType"> Employment Type </label>
+
+                <select id="f-employmentType">
+                  <option value="Unemployed">Unemployed</option>
+
+                  <option value="Public">Public</option>
+
+                  <option value="Private">Private</option>
+
+                  <option value="Self-Employed">Self-Employed</option>
+                </select>
+              </div>
               >
               <label class="checkbox-item"
                 ><input type="checkbox" id="f-senior" /><span

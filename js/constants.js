@@ -40,7 +40,26 @@ const INDICATORS = [
     label: "Citizenship — Foreigner",
     check: (r) => r.citizenship === "Foreigner",
   },
-  { key: "employed", label: "Employed", check: (r) => r.employed },
+  {
+    key: "publicEmployment",
+    label: "Public Employment",
+    check: (r) => r.employmentType === "Public",
+  },
+  {
+    key: "privateEmployment",
+    label: "Private Employment",
+    check: (r) => r.employmentType === "Private",
+  },
+  {
+    key: "selfEmployment",
+    label: "Self-Employed",
+    check: (r) => r.employmentType === "Self-Employed",
+  },
+  {
+    key: "unemployed",
+    label: "Unemployed",
+    check: (r) => r.employmentType === "Unemployed",
+  },
   { key: "unemployed", label: "Unemployed", check: (r) => r.unemployed },
   { key: "osc", label: "Out of School Children (OSC)", check: (r) => r.osc },
   { key: "osy", label: "Out of School Youth (OSY)", check: (r) => r.osy },

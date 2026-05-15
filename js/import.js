@@ -157,15 +157,6 @@ function processImportedRows(rows, sheetName) {
       .toUpperCase();
     const occupation = String(row[getColIndex("OCCUPATION")] || "").trim();
 
-    const isEmployed =
-      occupation !== "" ||
-      employedCell.includes("PRIVATE") ||
-      employedCell.includes("PUBLIC") ||
-      employedCell.includes("SELF") ||
-      employedCell.includes("EMPLOYED");
-
-    const isUnemployed = !isEmployed || employedCell.includes("UNEMPLOYED");
-
     const resident = {
       id: genId(),
 
@@ -199,9 +190,25 @@ function processImportedRows(rows, sheetName) {
 
       role: role,
 
-      employed: String(row[getColIndex("OCCUPATION")] || "").trim() !== "",
+      employmentType: (() => {
+        const employmentValue = String(row[employedIndex] || "")
+          .trim()
+          .toUpperCase();
 
-      unemployed: String(row[getColIndex("OCCUPATION")] || "").trim() === "",
+        if (employmentValue.includes("PUBLIC")) {
+          return "Public";
+        }
+
+        if (employmentValue.includes("PRIVATE")) {
+          return "Private";
+        }
+
+        if (employmentValue.includes("SELF")) {
+          return "Self-Employed";
+        }
+
+        return "Unemployed";
+      })(),
 
       seniorCitizen: yesNo(row[getColIndex(["SENIOR"])]),
 
